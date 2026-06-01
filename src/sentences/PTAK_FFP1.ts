@@ -5,14 +5,16 @@ message = "PTAK,FFD1,xyz";
 
 **/
 
-const nmea = require('../nmea.js')
-module.exports = function (app) {
+import * as nmea from '../nmea'
+import type { SentenceEncoder, SignalKApp } from '../types/plugin'
+
+export default function (_app: SignalKApp): SentenceEncoder {
   return {
     sentence: 'PTAK_FFP1',
     optionKey: 'PTAK_FFP1',
     title: 'PTAK - Performance - Polar Speed Ratio Header',
     keys: ['performance.polarSpeedRatio'],
-    f: function (performance) {
+    f: function () {
       return nmea.toSentence([
         '$PTAK',
         'FFP1',
@@ -22,3 +24,5 @@ module.exports = function (app) {
     }
   }
 }
+
+
